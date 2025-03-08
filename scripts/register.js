@@ -1,5 +1,7 @@
 // getting the inputs from the HTML
 let pets=[];
+let edit = false;
+let selectedId = 0;
 let inputName = document.getElementById("txtName");
 let inputAge = document.getElementById("txtAge");
 let inputGender = document.getElementById("txtGender");
@@ -16,17 +18,25 @@ function Pet(name,age,gender,breed,service){
 }
 //register function
 function register(){
-    // create the obj
-    let newPet = new Pet(inputName.value,inputAge.value,inputGender.value,inputBreed.value,inputService.value);
-    //check validation
-    if(isValid(newPet)){
-        //push the obj into array
-        pets.push(newPet);
-        console.log(pets);
-        //clearing the inputs (erasing the contents)
-        //display the obj in the html
+    if(edit){
+        let modifiedPet = new Pet(inputName.value,inputAge.value,inputGender.value,inputBreed.value,inputService.value);
+        pets[selectedId] = modifiedPet;
         clearInputs();
         displayPet();
+        edit = false;
+    }else{
+        // create the obj
+        let newPet = new Pet(inputName.value,inputAge.value,inputGender.value,inputBreed.value,inputService.value);
+        //check validation
+        if(isValid(newPet)){
+            //push the obj into array
+            pets.push(newPet);
+            console.log(pets);
+            //clearing the inputs (erasing the contents)
+            //display the obj in the html
+            clearInputs();
+            displayPet();
+        }
     }
 }
 
@@ -61,6 +71,19 @@ function deletePet(petId){
     pets.splice(petId,1);
     displayPet();
     displayInfo();
+}
+
+function editPet(petId){
+    console.log("Getting pet with id: " + petId);
+    console.log(pets[petId]);
+    let pet = pets[petId];
+    inputName.value = pet.name;
+    inputAge.value = pet.age;
+    inputGender.value = pet.gender;
+    inputBreed.value = pet.breed;
+    inputService.value = pet.service;
+    edit = true;
+    selectedId = petId;
 }
 
 function clearInputs(){

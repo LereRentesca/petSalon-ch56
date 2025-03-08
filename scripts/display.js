@@ -11,6 +11,7 @@ function displayPet(){
                     <h5 class="card-title">${pet.name} - <span class="text-secondary">${pet.service}</span></h5>
                     <h6 class="card-subtitle mb-2 text-body-secondary">${pet.breed}</h6>
                     <p class="card-text">${pet.gender}, ${pet.age} years.</p>
+                    <button class="btn btn-secondary btn-sm" onclick="editPet(${i})">Edit</button>
                     <button class="btn btn-danger btn-sm" onclick="deletePet(${i})">Delete</button>
                 </div>
             </div>
